@@ -6,6 +6,7 @@ const bindFunc = helpers.bindFunc
 
 const isFunction = require('../core/isFunction')
 const unit = require('../core/_unit')
+const fl = require('../core/flNames')
 
 const identity = x => x
 
@@ -48,6 +49,20 @@ test('map functor', t => {
   map(identity)(m)
 
   t.ok(m.map.calledWith(identity), 'calls map on functor, passing the function')
+  t.end()
+})
+
+test('map functor (fantasy-land)', t => {
+  const m = {
+    map: sinon.spy(unit),
+    [fl.map]: sinon.spy(unit)
+  }
+
+  map(identity)(m)
+
+  t.ok(m[fl.map].calledWith(identity), 'calls fantasy-land/map on functor, when present')
+  t.notOk(m.map.calledWith(identity), 'does not call map on functor, when fantasy-land/map present')
+
   t.end()
 })
 

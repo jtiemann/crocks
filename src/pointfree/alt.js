@@ -4,6 +4,7 @@
 const curry = require('../core/curry')
 const isAlt = require('../core/isAlt')
 const isSameType = require('../core/isSameType')
+const fl = require('../core/flNames')
 
 // alt : Alt m => m a -> m a -> m a
 function alt(m, x) {
@@ -11,6 +12,10 @@ function alt(m, x) {
     throw new TypeError(
       'alt: Both arguments must be Alts of the same type'
     )
+  }
+
+  if(x[fl.alt]) {
+    return x[fl.alt](m)
   }
 
   return x.alt(m)

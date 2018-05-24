@@ -1,3 +1,5 @@
+const _fl = require('../core/flNames')
+
 const id =
   x => x
 
@@ -10,12 +12,17 @@ function bindFunc(fn) {
   }
 }
 
-function makeFake(algs) {
+function makeFake(algs, fl=false) {
   const xs = algs.slice()
 
   const Fake = function() {
     return xs.reduce(function(o, alg) {
-      o[alg] = id
+      if(fl && _fl[alg]) {
+        o[_fl[alg]] = id
+      } else {
+        o[alg] = id
+      }
+
       return o
     }, {})
   }

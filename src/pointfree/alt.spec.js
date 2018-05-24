@@ -4,6 +4,7 @@ const helpers = require('../test/helpers')
 
 const bindFunc = helpers.bindFunc
 
+const fl = require('../core/flNames')
 const isFunction = require('../core/isFunction')
 const unit = require('../core/_unit')
 
@@ -55,6 +56,17 @@ test('alt with Alt', t => {
   alt(m, x)
 
   t.ok(x.alt.calledWith(m), 'calls the alt function on the second arg passing in the first arg')
+
+  t.end()
+})
+
+test('alt with Alt (fantasy-land)', t => {
+  const m = mock({ [fl.alt]: sinon.spy(identity) })
+  const x = mock({ [fl.alt]: sinon.spy(identity) })
+
+  alt(m, x)
+
+  t.ok(x[fl.alt].calledWith(m), 'calls the alt function on the second arg passing in the first arg')
 
   t.end()
 })

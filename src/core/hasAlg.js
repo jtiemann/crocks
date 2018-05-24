@@ -2,8 +2,10 @@
 /** @author Ian Hofmann-Hicks (evil) */
 
 const isFunction = require('./isFunction')
+const fl = require('./flNames')
 
 const hasAlg = (alg, m) =>
-  isFunction(m[alg]) || isFunction(m['@@implements']) && !!m['@@implements'](alg)
+  isFunction(m[fl[alg]]) || isFunction(m[alg])
+    || isFunction(m['@@implements']) && !!m['@@implements'](alg)
 
 module.exports = hasAlg

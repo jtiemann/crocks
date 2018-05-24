@@ -7,6 +7,7 @@ const curry = require('../core/curry')
 const isArray = require('../core/isArray')
 const isObject = require('../core/isObject')
 const isFunction = require('../core/isFunction')
+const fl = require('../core/flNames')
 const object = require('../core/object')
 
 // map : Functor f => (a -> b) -> f a -> f b
@@ -21,6 +22,10 @@ function map(fn, m) {
 
   if(isArray(m)) {
     return array.map(fn, m)
+  }
+
+  if(m && isFunction(m[fl.map])) {
+    return m[fl.map](fn)
   }
 
   if(m && isFunction(m.map)) {
